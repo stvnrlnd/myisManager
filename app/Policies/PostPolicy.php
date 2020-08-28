@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Post;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy
@@ -42,7 +43,7 @@ class PostPolicy
     public function create(User $user)
     {
         //die("I'm here");
-        return $user->posts()->today()->count()<2;
+        return $user->posts()->whereDate('created_at', Carbon::today())->get()->count() < 2;
     }
 
     /**
@@ -54,7 +55,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        
+
     }
 
     /**
