@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
  use App\Post;
  use App\User;
 use Storage;
+use App\Policies\PostPolicy;
 class HomeController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+         $this->middleware('can:create, App\Post')->only('create');
         $this->middleware('auth');
     }
 

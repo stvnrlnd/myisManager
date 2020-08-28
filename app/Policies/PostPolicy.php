@@ -30,7 +30,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        die("I'm being called...");
+       // die("I'm being called...");
     }
 
     /**
