@@ -59,17 +59,20 @@ class HomeController extends Controller
             'title' => 'required|min:2',
             'text' => 'required',
         ]);
-             $data = [
-       'title' => $request->title,
-      'text' => $request->text,
-      'email' => $request->email,
-      'message' => $request->message,
-    ];
+
+        $data = [
+            'title' => $request->title,
+            'text' => $request->text,
+            'email' => $request->email,
+            'message' => $request->message,
+        ];
+
         auth()->user()->posts()->create($attributes);
-        $manager=User::where('manager', $request->query('manager', 1))->get();
-        //dd($manager);
-        auth()->user()->posts()->create($attributes);
-    Mail::to('arixxmanager@gmail.com'/*$manager->email*/)->send(new WelcomeMail($data));
+
+        $manager = User::where('manager', 1)->firstOrFail();
+
+        Mail::to($manager->email)->send(new WelcomeMail($data));
+
         return redirect('/');
     }
 }
